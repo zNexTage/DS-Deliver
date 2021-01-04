@@ -42,9 +42,20 @@ public class OrderService {
 		
 		//Faz o relacionamento entre a ordem e os produtos		
 		for(ProductDTO prodDto : orderDto.getProducts()) {
-			Product prod = prodRepository.getOne(prodDto.getId());
+			Product prod = prodRepository.getOne(prodDto.getId()); //Obj monitorado pelo JPA
 			order.getProducts().add(prod);
 		}
+		
+		order = repository.save(order);
+		
+		return new OrderDTO(order);
+	}
+	
+	@Transactional
+	public OrderDTO setDelivered(Long id){ 
+		Order order = repository.getOne(id);
+		
+		order.setStatus(OrderStatus.DELIVERED);
 		
 		order = repository.save(order);
 		
