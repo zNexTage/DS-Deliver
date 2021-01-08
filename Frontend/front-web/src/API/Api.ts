@@ -1,5 +1,5 @@
 const Api = {
-    API_URL: "http://localhost:8080"
+    API_URL: process.env.REACT_APP_API_URL
 }
 
 export default Api;
