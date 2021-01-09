@@ -3,19 +3,29 @@ import { StyleSheet, Text, View, Image } from 'react-native';
 import Colors from '../../Consts/Colors';
 import Constants from 'expo-constants';
 import Logo from '../../../assets/logo.png';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import { useNavigation } from '@react-navigation/native';
 
 const MAX_HEIGHT = 90;
 
 function Header() {
+    const navigation = useNavigation();
+
+    const handleOnPress = () => navigation.navigate('Home');
+
     return (
-        <View style={styles.container}>
-            <View style={styles.internalContainer}>
-                <Image
-                    source={Logo}
-                />
-                <Text style={styles.text}>DS Delivery!</Text>
+        <TouchableWithoutFeedback
+            onPress={handleOnPress}
+        >
+            <View style={styles.container}>
+                <View style={styles.internalContainer}>
+                    <Image
+                        source={Logo}
+                    />
+                    <Text style={styles.text}>DS Delivery!</Text>
+                </View>
             </View>
-        </View>
+        </TouchableWithoutFeedback>
     );
 }
 
@@ -27,12 +37,12 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         flexDirection: 'row'
     },
-    internalContainer:{
-        flex:1,
-        flexDirection:'row',
+    internalContainer: {
+        flex: 1,
+        flexDirection: 'row',
         marginTop: Constants.statusBarHeight,
-        justifyContent:'center',
-        alignItems:'center'
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     text: {
         fontWeight: 'bold',
@@ -41,7 +51,7 @@ const styles = StyleSheet.create({
         letterSpacing: -0.024,
         color: '#FFF',
         marginLeft: 15,
-        fontFamily:'OpenSans_700Bold'
+        fontFamily: 'OpenSans_700Bold'
     }
 });
 

@@ -1,15 +1,21 @@
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
 import DeliveryMan from '../../../assets/deliveryman.png';
 import DefaultButton from '../../Components/DefaultButton';
+import Header from '../../Components/Header';
 
 function Home() {
-    const handleOnPress = () => {
+    const navigation = useNavigation();
 
+    const handleOnPress = () => {
+        navigation.navigate('Orders');
     }
+
     return (
         <>
+            <Header />
             <View style={styles.container}>
                 <Image
                     source={DeliveryMan}
@@ -54,9 +60,7 @@ const styles = StyleSheet.create({
     footer: {
         marginTop: '5%',
         alignItems: 'center'
-    },
-
-
+    }
 });
 
 export default Home;

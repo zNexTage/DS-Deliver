@@ -1,11 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import Header from './src/Components/Header';
 import { useFonts, OpenSans_400Regular, OpenSans_700Bold } from '@expo-google-fonts/open-sans';
 import AppLoading from 'expo-app-loading';
-import Home from './src/Views/Home';
 import Colors from './src/Consts/Colors';
+import Routes from './src/Routes';
 
 export default function App() {
   let [fontsLoaded] = useFonts({
@@ -19,9 +18,8 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <Header />
       <StatusBar backgroundColor={Colors.PrimaryColor} style="auto" />
-      <Home />
+      <Routes />
     </View>
   );
 }
