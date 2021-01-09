@@ -1,34 +1,67 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native'
+import { FlatList } from 'react-native-gesture-handler';
+import Order from '../../../../Types/Order';
+import Product from '../../../../Types/Product';
+import dayjs from 'dayjs';
+import 'dayjs/locale/pt-br';
+import relativeTime from 'dayjs/plugin/relativeTime';
+import 'intl';
+import 'intl/locale-data/jsonp/en';
+
+dayjs.locale('pt-br');
+dayjs.extend(relativeTime);
 
 type Props = {
-
+    order: Order;
 }
 
-function OrderCard() {
+const dateFromNow = (date: string) => dayjs(date).fromNow();
+
+const formatPrice = (price: number) => {
+    const formatter = new Intl.NumberFormat("pt-BR", {
+        style: 'currency',
+        currency: "BRL",
+        minimumFractionDigits: 2
+    })
+
+    return formatter.format(price)
+}
+
+function OrderCard({ order }: Props) {
+
+    const productItem = ({ item }: { item: Product }) => {
+        return (
+            <Text style={styles.text}>
+                {item.name}
+            </Text>
+        )
+    }
+
+    const productExtractor = (item: Product, index: number): string => {
+        return `${item.id}`;
+    }
+
     return (
         <View style={styles.container}>
             <View style={styles.header}>
                 <Text style={styles.orderName}>
-                    Pedido 1
+                    Pedido {order.id}
                 </Text>
                 <Text style={styles.orderPrice}>
-                    R$ 50,00
+                    {formatPrice(order.total)}
                 </Text>
             </View>
             <Text style={styles.text}>
-                Há 30 min
+                {dateFromNow(order.moment)}
             </Text>
             <View style={styles.productsList}>
-                <Text style={styles.text}>
-                   Pizza Calabresa
-                </Text>
-                <Text style={styles.text}>
-                   Pizza Quatro Queijos
-                </Text>
-                <Text style={styles.text}>
-                   Pizza Marguerita
-                </Text>
+                <FlatList
+                    data={order.products}
+                    renderItem={productItem}
+                    contentContainerStyle={{ flexGrow: 1 }}
+                    keyExtractor={productExtractor}
+                />
             </View>
         </View>
     )
@@ -46,7 +79,9 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 0, height: 4 },
         shadowRadius: 20,
         borderRadius: 10,
-        elevation: 5
+        elevation: 5,
+        paddingLeft: '5%',
+        paddingRight: '5%',
     },
     header: {
         flexDirection: 'row',

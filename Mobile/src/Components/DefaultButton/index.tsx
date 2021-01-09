@@ -25,7 +25,9 @@ const styles = StyleSheet.create({
     button: {
         backgroundColor: '#DA5C5C',
         flexDirection: 'row',
-        borderRadius: 10
+        borderRadius: 10,
+        justifyContent:'center',
+        marginTop: 10
     },
     buttonText: {
         paddingTop: 15,
@@ -35,6 +37,6 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 18,
         color: '#FFF',
-        letterSpacing: -0.24
+        letterSpacing: -0.24, 
     }
 })
