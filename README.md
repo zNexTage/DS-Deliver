@@ -1,4 +1,4 @@
-# DS Deliver
+# DS delivery
 
 Aplicação fullstack (web e mobile) de delivery.
 
